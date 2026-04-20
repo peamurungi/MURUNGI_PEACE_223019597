@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Web Site</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Times New Roman, serif;
+      font-size: 14px;
+    }
+
+    /* ── Top search bar ── */
+    .search-bar {
+      background-color: blue;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .search-bar input[type="text"] {
+      width: 150px;
+      padding: 3px 5px;
+      border: 1px solid #ccc;
+      background-color: #b0b0f8;
+    }
+
+    .search-bar button {
+      padding: 3px 10px;
+      background-color: #e0e0e0;
+      border: 1px solid #999;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    /* ── Main layout: sidebar + content ── */
+    .main-layout {
+      display: flex;
+      min-height: 400px;
+    }
+
+    /* ── Left sidebar ── */
+    .sidebar {
+      background-color: yellow;
+      width: 220px;
+      min-width: 220px;
+      padding: 15px 10px;
+    }
+
+    .sidebar ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 6px;
+    }
+
+    .sidebar ul li a {
+      color: blue;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+
+    .sidebar ul li a:hover {
+      color: darkblue;
+    }
+
+    /* ── Right content area ── */
+    .content {
+      flex: 1;
+      padding: 15px 20px;
+      background-color: white;
+    }
+
+    .content h1 {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+      font-family: Times New Roman, serif;
+    }
+
+    .content img {
+      display: block;
+      width: 220px;
+      height: 160px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .content p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #000;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" name="search">
+    <button>Search...</button>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="main-layout">
+
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="#">Doc</a></li>
+      </ul>
+    </div>
+
+    <!-- Right Content -->
+    <div class="content">
+      <h1>My Web site</h1>
+
+      <!-- Replace src with your image path if needed -->
+      <img src="image.jpg.jpeg" alt="Solar panels" width="400px">
+
+      <p>
+        As the software industry moves into the second decade of the 21st century, software quality is increasingly
+        becoming essential to all businesses and knowledge of software testing is becoming necessary for all software
+        engineers. The course focus on the theoretical concepts of Software Testing with high emphasis on inclusion of
+        the practical context which is equally needed to prepare the learner for the demands of this field in the workplace.
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currency Converter APP</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #c8c8c8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      background: #d6d6d6;
+      width: 340px;
+      padding: 28px 28px 24px;
+      box-shadow: 4px 4px 14px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 16px;
+      font-weight: normal;
+      color: #222;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #aaa;
+      background: #fff;
+      font-size: 14px;
+      color: #222;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #29b6f6;
+    }
+
+    /* Custom dropdown arrow */
+    .select-wrapper {
+      position: relative;
+    }
+
+    .select-wrapper select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 36px;
+    }
+
+    .select-wrapper::after {
+      content: '▼';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #444;
+      font-size: 12px;
+      pointer-events: none;
+    }
+
+    .btn-convert {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      background: #29b6f6;
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      border: none;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-convert:hover { background: #039be5; }
+    .btn-convert:active { background: #0277bd; }
+
+    .result-section {
+      margin-top: 18px;
+    }
+
+    .result-section label {
+      display: block;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .result-box {
+      width: 100%;
+      background: #111;
+      color: #0ff;
+      font-size: 15px;
+      padding: 12px 14px;
+      min-height: 60px;
+      font-family: 'Courier New', monospace;
+      border: 1px solid #333;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .error { color: #ff6b6b; }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: #777;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Currency Converter APP</h2>
+
+  <!-- Amount Input -->
+  <div class="form-group">
+    <label for="amount">Enter Amount IN FRW</label>
+    <input type="number" id="amount" placeholder="e.g. 10000" min="0" step="any"/>
+  </div>
+
+  <!-- Currency Dropdown -->
+  <div class="form-group">
+    <label for="currency">Select Currency</label>
+    <div class="select-wrapper">
+      <select id="currency">
+        <option value="">— Select Currency —</option>
+        <option value="USD">USD — US Dollar</option>
+        <option value="EUR">EUR — Euro</option>
+        <option value="GBP">GBP — British Pound</option>
+        <option value="KES">KES — Kenyan Shilling</option>
+        <option value="UGX">UGX — Ugandan Shilling</option>
+        <option value="TZS">TZS — Tanzanian Shilling</option>
+        <option value="BIF">BIF — Burundian Franc</option>
+        <option value="CNY">CNY — Chinese Yuan</option>
+        <option value="JPY">JPY — Japanese Yen</option>
+        <option value="INR">INR — Indian Rupee</option>
+        <option value="ZAR">ZAR — South African Rand</option>
+        <option value="CAD">CAD — Canadian Dollar</option>
+        <option value="AUD">AUD — Australian Dollar</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Rate Input -->
+  <div class="form-group">
+    <label for="rate">Rate (1 FRW = ? selected currency)</label>
+    <input type="number" id="rate" placeholder="e.g. 0.00083" step="any" min="0"/>
+  </div>
+
+  <!-- Convert Button -->
+  <button class="btn-convert" onclick="convert()">CONVERT</button>
+
+  <!-- Result -->
+  <div class="result-section">
+    <label>Result</label>
+    <div class="result-box" id="result">Result Here ....</div>
+  </div>
+
+  <p class="footer-note">Enter amount, select currency, enter rate, then click CONVERT</p>
+</div>
+
+<script>
+  function convert() {
+    const amountInput   = document.getElementById('amount');
+    const currencyInput = document.getElementById('currency');
+    const rateInput     = document.getElementById('rate');
+    const resultBox     = document.getElementById('result');
+
+    const amount   = parseFloat(amountInput.value);
+    const currency = currencyInput.value;
+    const rate     = parseFloat(rateInput.value);
+
+    // ── Validation ────────────────────────────────────────────
+    if (isNaN(amount) || amountInput.value.trim() === '') {
+      resultBox.innerHTML = '<span class="error">❌ Please enter a valid amount.</span>';
+      return;
+    }
+
+    if (!currency) {
+      resultBox.innerHTML = '<span class="error">❌ Please select a currency.</span>';
+      return;
+    }
+
+    if (isNaN(rate) || rate <= 0 || rateInput.value.trim() === '') {
+      resultBox.innerHTML = '<span class="error">❌ Please enter a valid exchange rate.</span>';
+      return;
+    }
+
+    if (amount < 0) {
+      resultBox.innerHTML = '<span class="error">❌ Amount cannot be negative.</span>';
+      return;
+    }
+
+    // ── Calculation ───────────────────────────────────────────
+    const converted = amount * rate;
+
+    // Format with appropriate decimal places
+    const formatted = converted.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 4
+    });
+
+    const amountFormatted = amount.toLocaleString('en-US');
+
+    resultBox.innerHTML =
+      `${amountFormatted} FRW\n= ${formatted} ${currency}\n\n(Rate: 1 FRW = ${rate} ${currency})`;
+  }
+
+  // Allow pressing Enter to convert
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') convert();
+  });
+
+  // Auto-fill rate suggestions when currency is selected
+  const suggestedRates = {
+    USD: 0.00083,
+    EUR: 0.00077,
+    GBP: 0.00066,
+    KES: 0.107,
+    UGX: 3.08,
+    TZS: 2.17,
+    BIF: 2.98,
+    CNY: 0.006,
+    JPY: 0.125,
+    INR: 0.069,
+    ZAR: 0.016,
+    CAD: 0.00113,
+    AUD: 0.00128,
+  };
+
+  document.getElementById('currency').addEventListener('change', function() {
+    const rateField = document.getElementById('rate');
+    const val = this.value;
+    if (val && suggestedRates[val]) {
+      rateField.value = suggestedRates[val];
+      rateField.style.borderColor = '#29b6f6';
+    } else {
+      rateField.value = '';
+      rateField.style.borderColor = '';
+    }
+    // Clear result when currency changes
+    document.getElementById('result').textContent = 'Result Here ....';
+    document.getElementById('result').querySelector && null;
+    document.getElementById('result').innerHTML = 'Result Here ....';
+  });
+</script>
+
+</body>
+</html>
