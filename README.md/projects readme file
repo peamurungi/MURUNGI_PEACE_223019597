@@ -1,0 +1,67 @@
+Web Development Project – BIT Level 3
+
+ Overview
+This project is a collection of four assignments designed to practice HTML, CSS, JavaScript, and PHP.  
+It demonstrates how to build static pages, interactive forms, and dynamic websites connected to a database.
+
+---
+
+ Project One
+Recreate a static webpage with navigation links (`Home`, `About Us`, `Contact Us`, `Doc`).  
+This project focuses on layout and styling using HTML and CSS.
+
+---
+
+ Project Two
+Build a **Student Registration Form** with fields for personal details, dropdowns for date and country, checkboxes for hobbies, and a qualification table.  
+Connect the form to a MySQL database using PHP so that submitted data is stored securely.
+
+---
+
+ Project Three
+Develop a **Hotel Website** with at least six pages:
+- Home
+- About Us
+- Menu (HTML table with items like Fish, Drinks, Fresh Juice)
+- Order (PHP form to collect customer details and save to database)
+- Gallery (minimum 5 images, each linking to the Order page)
+- Contact Us (PHP form to send visitor messages into database)
+
+The admin dashboard uses PHP sessions to allow login, display customer orders, and provide a logout link.
+
+---
+
+ Project Four
+Create a **Currency Converter App** using JavaScript.  
+It includes:
+- Input field for amount
+- Dropdown for currency type (FRW, USD, EURO, etc.)
+- Field for rate
+- Output field showing converted amount
+
+---
+
+## How PHP Fits In
+- **db.php**: Connects to the MySQL database.  
+- **login.php**: Authenticates users against the `users` table.  
+- **admin.php**: Displays orders and contacts dynamically from the database.  
+- **create_admin.php**: Inserts a default admin account.  
+- **logout.php**: Ends the session and redirects to login.  
+- **Forms (Order, Contact, Registration)**: Use PHP `$_POST` to capture input and `INSERT` queries to save data into MySQL.
+
+---
+
+ Requirements
+- WAMP/XAMPP or any PHP + MySQL server
+- PHP 7.4+ recommended
+- MySQL 5.7+ recommended
+- phpMyAdmin for database setup
+
+
+
+Setup Instructions
+1. Copy the project folder into your server root (`www` or `htdocs`).  
+2. Create a database named `hotel_db`.  
+3. Import the provided `hotel_project.sql` file to set up tables (`users`, `orders`, `contacts`).  
+4. Start Apache and MySQL in WAMP/XAMPP.  
+5. Access the project in your browser:  
