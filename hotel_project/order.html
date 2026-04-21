@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Order Food</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Map gallery items to friendly names
+    const itemMap = {
+      "Fish": "Grilled Fish",
+      "Drink": "Soft Drink",
+      "Fresh Juice": "Fresh Juice"
+    };
+
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+      const item = params.get("item");
+      if(item && itemMap[item]) {
+        document.getElementById("menu_item").value = itemMap[item];
+        document.getElementById("hidden_item").value = item; // actual value for backend
+      }
+    }
+  </script>
+</head>
+<body>
+  <h2>Place Your Order</h2>
+  <form action="save_order.php" method="POST">
+    <input type="text" name="full_name" placeholder="Full Name" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="text" name="phone" placeholder="Phone" required><br>
+    
+    <!-- Read-only field for user display -->
+    <input type="text" id="menu_item" readonly required><br>
+    <!-- Hidden field for backend validation -->
+    <input type="hidden" id="hidden_item" name="menu_item">
+    
+    <input type="text" name="address" placeholder="Address" required><br>
+    <input type="date" name="order_date" required><br>
+    <button type="submit">Submit Order</button>
+  </form>
+</body>
+</html>
